@@ -1,0 +1,419 @@
+{
+    "zabbix_export": {
+        "version": "6.0",
+        "date": "2024-05-23T21:42:56Z",
+        "groups": [
+            {
+                "uuid": "d70e8a214c754a3d9b8e9940eaad65c9",
+                "name": "Templates/Heberg to Oxygen"
+            }
+        ],
+        "templates": [
+            {
+                "uuid": "fd689dbd68d14642bc7f0c677b6a4560",
+                "template": "Template - Heberg to Oxygen - Mysql",
+                "name": "Template - Heberg to Oxygen - Mysql",
+                "groups": [
+                    {
+                        "name": "Templates/Heberg to Oxygen"
+                    }
+                ],
+                "items": [
+                    {
+                        "uuid": "ece0da8c34974fc98a1d02c51831183d",
+                        "name": "H2o - Time Requests SQL {$MYSQL.TIME.AVERAGE}s",
+                        "key": "mysql.requests[\"{$MYSQL.DSN}\",\"{$MYSQL.USER}\",\"{$MYSQL.PASSWORD}\", {$MYSQL.TIME.AVERAGE}]",
+                        "delay": "5m",
+                        "tags": [
+                            {
+                                "tag": "Application",
+                                "value": "MySQL"
+                            }
+                        ],
+                        "triggers": [
+                            {
+                                "uuid": "c753f7eec0c040d8a5aedfc8aa15bba5",
+                                "expression": "last(/Template - Heberg to Oxygen - Mysql/mysql.requests[\"{$MYSQL.DSN}\",\"{$MYSQL.USER}\",\"{$MYSQL.PASSWORD}\", {$MYSQL.TIME.AVERAGE}])>0",
+                                "name": "H2o - Time Request SQL >{$MYSQL.TIME.AVERAGE}s",
+                                "priority": "AVERAGE",
+                                "dependencies": [
+                                    {
+                                        "name": "H2o - Time Request SQL >{$MYSQL.TIME.HIGH}s",
+                                        "expression": "last(/Template - Heberg to Oxygen - Mysql/mysql.requests[\"{$MYSQL.DSN}\",\"{$MYSQL.USER}\",\"{$MYSQL.PASSWORD}\", {$MYSQL.TIME.HIGH}])>0"
+                                    }
+                                ],
+                                "tags": [
+                                    {
+                                        "tag": "application",
+                                        "value": "mysql"
+                                    },
+                                    {
+                                        "tag": "software",
+                                        "value": "request"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "275c9743a40045848312c0564ec87525",
+                        "name": "H2o - Time Requests SQL {$MYSQL.TIME.HIGH}s",
+                        "key": "mysql.requests[\"{$MYSQL.DSN}\",\"{$MYSQL.USER}\",\"{$MYSQL.PASSWORD}\", {$MYSQL.TIME.HIGH}]",
+                        "delay": "5m",
+                        "tags": [
+                            {
+                                "tag": "Application",
+                                "value": "MySQL"
+                            }
+                        ],
+                        "triggers": [
+                            {
+                                "uuid": "3d20005b33104a298c869a03f46c93d9",
+                                "expression": "last(/Template - Heberg to Oxygen - Mysql/mysql.requests[\"{$MYSQL.DSN}\",\"{$MYSQL.USER}\",\"{$MYSQL.PASSWORD}\", {$MYSQL.TIME.HIGH}])>0",
+                                "name": "H2o - Time Request SQL >{$MYSQL.TIME.HIGH}s",
+                                "priority": "HIGH",
+                                "tags": [
+                                    {
+                                        "tag": "application",
+                                        "value": "mysql"
+                                    },
+                                    {
+                                        "tag": "software",
+                                        "value": "request"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "discovery_rules": [
+                    {
+                        "uuid": "d5d91e7662e1441bae4fce05c4b0071c",
+                        "name": "H2o - Database user",
+                        "key": "mysql.connection.users[\"{$MYSQL.DSN}\",\"{$MYSQL.USER}\",\"{$MYSQL.PASSWORD}\"]",
+                        "delay": "1h",
+                        "item_prototypes": [
+                            {
+                                "uuid": "79f3110109d740a3a540bf24b51e203e",
+                                "name": "H2o - MySQL: Connexion for user {#USER}",
+                                "key": "mysql.connection.user[\"{$MYSQL.DSN}\",\"{$MYSQL.USER}\",\"{$MYSQL.PASSWORD}\",\"{#USER}\"]",
+                                "delay": "5m",
+                                "tags": [
+                                    {
+                                        "tag": "Application",
+                                        "value": "Connection"
+                                    }
+                                ],
+                                "trigger_prototypes": [
+                                    {
+                                        "uuid": "c1ced39864644fc19b9bd47eab8d3251",
+                                        "expression": "last(/Template - Heberg to Oxygen - Mysql/mysql.connection.user[\"{$MYSQL.DSN}\",\"{$MYSQL.USER}\",\"{$MYSQL.PASSWORD}\",\"{#USER}\"])>{$DB.CONNECTION.HIGH}",
+                                        "name": "H2o - Connection {#USER} >{$DB.CONNECTION.HIGH}",
+                                        "priority": "HIGH",
+                                        "tags": [
+                                            {
+                                                "tag": "application",
+                                                "value": "mysql"
+                                            },
+                                            {
+                                                "tag": "software",
+                                                "value": "connexion"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "uuid": "f987ad6f41fe4e67b71a7dff3ca975e8",
+                                        "expression": "last(/Template - Heberg to Oxygen - Mysql/mysql.connection.user[\"{$MYSQL.DSN}\",\"{$MYSQL.USER}\",\"{$MYSQL.PASSWORD}\",\"{#USER}\"])>{$DB.CONNECTION.MEDIUM}",
+                                        "name": "H2o - Connection {#USER} >{$DB.CONNECTION.MEDIUM}",
+                                        "priority": "AVERAGE",
+                                        "dependencies": [
+                                            {
+                                                "name": "H2o - Connection {#USER} >{$DB.CONNECTION.HIGH}",
+                                                "expression": "last(/Template - Heberg to Oxygen - Mysql/mysql.connection.user[\"{$MYSQL.DSN}\",\"{$MYSQL.USER}\",\"{$MYSQL.PASSWORD}\",\"{#USER}\"])>{$DB.CONNECTION.HIGH}"
+                                            }
+                                        ],
+                                        "tags": [
+                                            {
+                                                "tag": "application",
+                                                "value": "mysql"
+                                            },
+                                            {
+                                                "tag": "software",
+                                                "value": "connection"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "graph_prototypes": [
+                            {
+                                "uuid": "021208e1385843f9b6235679cf4e4f43",
+                                "name": "H2o - DB User - {#USER}",
+                                "graph_items": [
+                                    {
+                                        "sortorder": "1",
+                                        "drawtype": "BOLD_LINE",
+                                        "color": "1A7C11",
+                                        "item": {
+                                            "host": "Template - Heberg to Oxygen - Mysql",
+                                            "key": "mysql.connection.user[\"{$MYSQL.DSN}\",\"{$MYSQL.USER}\",\"{$MYSQL.PASSWORD}\",\"{#USER}\"]"
+                                        }
+                                    }
+                                ]
+                            }
+                        ],
+                        "lld_macro_paths": [
+                            {
+                                "lld_macro": "{#USER}",
+                                "path": "$.User"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "fb9674d2c1b24e2f86a50a49b108670e",
+                        "name": "H2o - Database size",
+                        "key": "mysql.db.discovery[\"{$MYSQL.DSN}\",\"{$MYSQL.USER}\",\"{$MYSQL.PASSWORD}\"]",
+                        "delay": "1h",
+                        "filter": {
+                            "conditions": [
+                                {
+                                    "macro": "{#DATABASE}",
+                                    "value": "information_schema",
+                                    "operator": "NOT_MATCHES_REGEX",
+                                    "formulaid": "A"
+                                }
+                            ]
+                        },
+                        "description": "Scanning databases in DBMS.",
+                        "item_prototypes": [
+                            {
+                                "uuid": "1f7920cb37264ac48cc3dc0c6a5d5b6a",
+                                "name": "H2o - MySQL: Size of database {#DATABASE}",
+                                "key": "mysql.db.size[\"{$MYSQL.DSN}\",\"{$MYSQL.USER}\",\"{$MYSQL.PASSWORD}\",\"{#DATABASE}\"]",
+                                "delay": "5m",
+                                "units": "B",
+                                "tags": [
+                                    {
+                                        "tag": "Application",
+                                        "value": "HDD"
+                                    }
+                                ],
+                                "trigger_prototypes": [
+                                    {
+                                        "uuid": "2364b9cc28924271bf8f4a74b22c22fe",
+                                        "expression": "last(/Template - Heberg to Oxygen - Mysql/mysql.db.size[\"{$MYSQL.DSN}\",\"{$MYSQL.USER}\",\"{$MYSQL.PASSWORD}\",\"{#DATABASE}\"])>{$MYSQL.HDD.HIGH}*1024*1024*1024",
+                                        "name": "H2o - DB {#DATABASE} >{$MYSQL.HDD.HIGH}Go",
+                                        "priority": "HIGH",
+                                        "tags": [
+                                            {
+                                                "tag": "application",
+                                                "value": "mysql"
+                                            },
+                                            {
+                                                "tag": "hardware",
+                                                "value": "hdd"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "uuid": "c57e48439877460591ba680f23d5e656",
+                                        "expression": "last(/Template - Heberg to Oxygen - Mysql/mysql.db.size[\"{$MYSQL.DSN}\",\"{$MYSQL.USER}\",\"{$MYSQL.PASSWORD}\",\"{#DATABASE}\"])>{$MYSQL.HDD.MEDIUM}*1024*1024*1024",
+                                        "name": "H2o - DB {#DATABASE} >{$MYSQL.HDD.MEDIUM}Go",
+                                        "priority": "AVERAGE",
+                                        "dependencies": [
+                                            {
+                                                "name": "H2o - DB {#DATABASE} >{$MYSQL.HDD.HIGH}Go",
+                                                "expression": "last(/Template - Heberg to Oxygen - Mysql/mysql.db.size[\"{$MYSQL.DSN}\",\"{$MYSQL.USER}\",\"{$MYSQL.PASSWORD}\",\"{#DATABASE}\"])>{$MYSQL.HDD.HIGH}*1024*1024*1024"
+                                            }
+                                        ],
+                                        "tags": [
+                                            {
+                                                "tag": "application",
+                                                "value": "mysql"
+                                            },
+                                            {
+                                                "tag": "hardware",
+                                                "value": "hdd"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "graph_prototypes": [
+                            {
+                                "uuid": "a051a03f27b44c5fbda37cfd20228342",
+                                "name": "H2o - DB Size - {#DATABASE}",
+                                "graph_items": [
+                                    {
+                                        "sortorder": "1",
+                                        "drawtype": "BOLD_LINE",
+                                        "color": "1A7C11",
+                                        "item": {
+                                            "host": "Template - Heberg to Oxygen - Mysql",
+                                            "key": "mysql.db.size[\"{$MYSQL.DSN}\",\"{$MYSQL.USER}\",\"{$MYSQL.PASSWORD}\",\"{#DATABASE}\"]"
+                                        }
+                                    }
+                                ]
+                            }
+                        ],
+                        "lld_macro_paths": [
+                            {
+                                "lld_macro": "{#DATABASE}",
+                                "path": "$.Database"
+                            }
+                        ]
+                    }
+                ],
+                "tags": [
+                    {
+                        "tag": "class",
+                        "value": "software"
+                    },
+                    {
+                        "tag": "service",
+                        "value": "mysql"
+                    },
+                    {
+                        "tag": "template",
+                        "value": "H2o"
+                    }
+                ],
+                "macros": [
+                    {
+                        "macro": "{$DB.CONNECTION.HIGH}",
+                        "value": "30",
+                        "description": "Connection on DB high"
+                    },
+                    {
+                        "macro": "{$DB.CONNECTION.MEDIUM}",
+                        "value": "15",
+                        "description": "Connection on DB medium"
+                    },
+                    {
+                        "macro": "{$MYSQL.DSN}",
+                        "value": "127.0.0.1",
+                        "description": "System data source name such as <tcp://host:port or unix:/path/to/socket)/>."
+                    },
+                    {
+                        "macro": "{$MYSQL.HDD.HIGH}",
+                        "value": "5",
+                        "description": "Max Size DB on Go"
+                    },
+                    {
+                        "macro": "{$MYSQL.HDD.MEDIUM}",
+                        "value": "3",
+                        "description": "Max Size DB on Go"
+                    },
+                    {
+                        "macro": "{$MYSQL.PASSWORD}",
+                        "type": "SECRET_TEXT",
+                        "description": "MySQL user password."
+                    },
+                    {
+                        "macro": "{$MYSQL.PORT}",
+                        "value": "3306"
+                    },
+                    {
+                        "macro": "{$MYSQL.TIME.AVERAGE}",
+                        "value": "10800",
+                        "description": "Time Request SQL Average"
+                    },
+                    {
+                        "macro": "{$MYSQL.TIME.HIGH}",
+                        "value": "21600",
+                        "description": "Time Request SQL High"
+                    },
+                    {
+                        "macro": "{$MYSQL.USER}",
+                        "value": "zabbix",
+                        "description": "MySQL user name."
+                    }
+                ],
+                "dashboards": [
+                    {
+                        "uuid": "70be58aa67c949e88659cbdcbcc49b07",
+                        "name": "MySQL Size",
+                        "pages": [
+                            {
+                                "widgets": [
+                                    {
+                                        "type": "GRAPH_PROTOTYPE",
+                                        "width": "24",
+                                        "height": "5",
+                                        "fields": [
+                                            {
+                                                "type": "INTEGER",
+                                                "name": "columns",
+                                                "value": "1"
+                                            },
+                                            {
+                                                "type": "ITEM_PROTOTYPE",
+                                                "name": "itemid",
+                                                "value": {
+                                                    "host": "Template - Heberg to Oxygen - Mysql",
+                                                    "key": "mysql.db.size[\"{$MYSQL.DSN}\",\"{$MYSQL.USER}\",\"{$MYSQL.PASSWORD}\",\"{#DATABASE}\"]"
+                                                }
+                                            },
+                                            {
+                                                "type": "INTEGER",
+                                                "name": "rows",
+                                                "value": "1"
+                                            },
+                                            {
+                                                "type": "INTEGER",
+                                                "name": "source_type",
+                                                "value": "3"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "fe8477daee3b43528b8e494babc43b65",
+                        "name": "MySQL User",
+                        "pages": [
+                            {
+                                "widgets": [
+                                    {
+                                        "type": "GRAPH_PROTOTYPE",
+                                        "width": "24",
+                                        "height": "5",
+                                        "fields": [
+                                            {
+                                                "type": "INTEGER",
+                                                "name": "columns",
+                                                "value": "1"
+                                            },
+                                            {
+                                                "type": "ITEM_PROTOTYPE",
+                                                "name": "itemid",
+                                                "value": {
+                                                    "host": "Template - Heberg to Oxygen - Mysql",
+                                                    "key": "mysql.connection.user[\"{$MYSQL.DSN}\",\"{$MYSQL.USER}\",\"{$MYSQL.PASSWORD}\",\"{#USER}\"]"
+                                                }
+                                            },
+                                            {
+                                                "type": "INTEGER",
+                                                "name": "rows",
+                                                "value": "1"
+                                            },
+                                            {
+                                                "type": "INTEGER",
+                                                "name": "source_type",
+                                                "value": "3"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}
