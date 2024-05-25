@@ -1,7 +1,7 @@
 {
   "zabbix_export": {
       "version": "6.0",
-      "date": "2024-05-25T20:51:00Z",
+      "date": "2024-05-25T22:31:45Z",
       "groups": [
           {
               "uuid": "d70e8a214c754a3d9b8e9940eaad65c9",
@@ -22,7 +22,7 @@
                   {
                       "uuid": "ece0da8c34974fc98a1d02c51831183d",
                       "name": "H2o - Time Requests SQL {$MYSQL.TIME.AVERAGE}s",
-                      "key": "mysql.requests[\"{$MYSQL.DSN}\",\"{$MYSQL.USER}\",\"{$MYSQL.PASSWORD}\", {$MYSQL.TIME.AVERAGE}]",
+                      "key": "MYSQL.REQUESTS[\"{$MYSQL.DSN}\",\"{$MYSQL.USER}\",\"{$MYSQL.PASSWORD}\", {$MYSQL.TIME.AVERAGE}]",
                       "delay": "5m",
                       "tags": [
                           {
@@ -33,13 +33,13 @@
                       "triggers": [
                           {
                               "uuid": "c753f7eec0c040d8a5aedfc8aa15bba5",
-                              "expression": "last(/Heberg to Oxygen - Mysql/mysql.requests[\"{$MYSQL.DSN}\",\"{$MYSQL.USER}\",\"{$MYSQL.PASSWORD}\", {$MYSQL.TIME.AVERAGE}])>0",
+                              "expression": "last(/Heberg to Oxygen - Mysql/MYSQL.REQUESTS[\"{$MYSQL.DSN}\",\"{$MYSQL.USER}\",\"{$MYSQL.PASSWORD}\", {$MYSQL.TIME.AVERAGE}])>0",
                               "name": "H2o - Time Request SQL >{$MYSQL.TIME.AVERAGE}s",
                               "priority": "AVERAGE",
                               "dependencies": [
                                   {
                                       "name": "H2o - Time Request SQL >{$MYSQL.TIME.HIGH}s",
-                                      "expression": "last(/Heberg to Oxygen - Mysql/mysql.requests[\"{$MYSQL.DSN}\",\"{$MYSQL.USER}\",\"{$MYSQL.PASSWORD}\", {$MYSQL.TIME.HIGH}])>0"
+                                      "expression": "last(/Heberg to Oxygen - Mysql/MYSQL.REQUESTS[\"{$MYSQL.DSN}\",\"{$MYSQL.USER}\",\"{$MYSQL.PASSWORD}\", {$MYSQL.TIME.HIGH}])>0"
                                   }
                               ],
                               "tags": [
@@ -58,7 +58,7 @@
                   {
                       "uuid": "275c9743a40045848312c0564ec87525",
                       "name": "H2o - Time Requests SQL {$MYSQL.TIME.HIGH}s",
-                      "key": "mysql.requests[\"{$MYSQL.DSN}\",\"{$MYSQL.USER}\",\"{$MYSQL.PASSWORD}\", {$MYSQL.TIME.HIGH}]",
+                      "key": "MYSQL.REQUESTS[\"{$MYSQL.DSN}\",\"{$MYSQL.USER}\",\"{$MYSQL.PASSWORD}\", {$MYSQL.TIME.HIGH}]",
                       "delay": "5m",
                       "tags": [
                           {
@@ -69,7 +69,7 @@
                       "triggers": [
                           {
                               "uuid": "3d20005b33104a298c869a03f46c93d9",
-                              "expression": "last(/Heberg to Oxygen - Mysql/mysql.requests[\"{$MYSQL.DSN}\",\"{$MYSQL.USER}\",\"{$MYSQL.PASSWORD}\", {$MYSQL.TIME.HIGH}])>0",
+                              "expression": "last(/Heberg to Oxygen - Mysql/MYSQL.REQUESTS[\"{$MYSQL.DSN}\",\"{$MYSQL.USER}\",\"{$MYSQL.PASSWORD}\", {$MYSQL.TIME.HIGH}])>0",
                               "name": "H2o - Time Request SQL >{$MYSQL.TIME.HIGH}s",
                               "priority": "HIGH",
                               "tags": [
@@ -90,13 +90,13 @@
                   {
                       "uuid": "d5d91e7662e1441bae4fce05c4b0071c",
                       "name": "H2o - Database user",
-                      "key": "mysql.connection.users[\"{$MYSQL.DSN}\",\"{$MYSQL.USER}\",\"{$MYSQL.PASSWORD}\"]",
+                      "key": "MYSQL.CONNECTION.USERS[\"{$MYSQL.DSN}\",\"{$MYSQL.USER}\",\"{$MYSQL.PASSWORD}\"]",
                       "delay": "1h",
                       "item_prototypes": [
                           {
                               "uuid": "79f3110109d740a3a540bf24b51e203e",
                               "name": "H2o - MySQL: Connexion for user {#USER}",
-                              "key": "mysql.connection.user[\"{$MYSQL.DSN}\",\"{$MYSQL.USER}\",\"{$MYSQL.PASSWORD}\",\"{#USER}\"]",
+                              "key": "MYSQL.CONNECTION.USER[\"{$MYSQL.DSN}\",\"{$MYSQL.USER}\",\"{$MYSQL.PASSWORD}\",\"{#USER}\"]",
                               "delay": "5m",
                               "tags": [
                                   {
@@ -107,7 +107,7 @@
                               "trigger_prototypes": [
                                   {
                                       "uuid": "c1ced39864644fc19b9bd47eab8d3251",
-                                      "expression": "last(/Heberg to Oxygen - Mysql/mysql.connection.user[\"{$MYSQL.DSN}\",\"{$MYSQL.USER}\",\"{$MYSQL.PASSWORD}\",\"{#USER}\"])>{$DB.CONNECTION.HIGH}",
+                                      "expression": "last(/Heberg to Oxygen - Mysql/MYSQL.CONNECTION.USER[\"{$MYSQL.DSN}\",\"{$MYSQL.USER}\",\"{$MYSQL.PASSWORD}\",\"{#USER}\"])>{$DB.CONNECTION.HIGH}",
                                       "name": "H2o - Connection {#USER} >{$DB.CONNECTION.HIGH}",
                                       "priority": "HIGH",
                                       "tags": [
@@ -123,13 +123,13 @@
                                   },
                                   {
                                       "uuid": "f987ad6f41fe4e67b71a7dff3ca975e8",
-                                      "expression": "last(/Heberg to Oxygen - Mysql/mysql.connection.user[\"{$MYSQL.DSN}\",\"{$MYSQL.USER}\",\"{$MYSQL.PASSWORD}\",\"{#USER}\"])>{$DB.CONNECTION.MEDIUM}",
+                                      "expression": "last(/Heberg to Oxygen - Mysql/MYSQL.CONNECTION.USER[\"{$MYSQL.DSN}\",\"{$MYSQL.USER}\",\"{$MYSQL.PASSWORD}\",\"{#USER}\"])>{$DB.CONNECTION.MEDIUM}",
                                       "name": "H2o - Connection {#USER} >{$DB.CONNECTION.MEDIUM}",
                                       "priority": "AVERAGE",
                                       "dependencies": [
                                           {
                                               "name": "H2o - Connection {#USER} >{$DB.CONNECTION.HIGH}",
-                                              "expression": "last(/Heberg to Oxygen - Mysql/mysql.connection.user[\"{$MYSQL.DSN}\",\"{$MYSQL.USER}\",\"{$MYSQL.PASSWORD}\",\"{#USER}\"])>{$DB.CONNECTION.HIGH}"
+                                              "expression": "last(/Heberg to Oxygen - Mysql/MYSQL.CONNECTION.USER[\"{$MYSQL.DSN}\",\"{$MYSQL.USER}\",\"{$MYSQL.PASSWORD}\",\"{#USER}\"])>{$DB.CONNECTION.HIGH}"
                                           }
                                       ],
                                       "tags": [
@@ -157,7 +157,7 @@
                                       "color": "1A7C11",
                                       "item": {
                                           "host": "Heberg to Oxygen - Mysql",
-                                          "key": "mysql.connection.user[\"{$MYSQL.DSN}\",\"{$MYSQL.USER}\",\"{$MYSQL.PASSWORD}\",\"{#USER}\"]"
+                                          "key": "MYSQL.CONNECTION.USER[\"{$MYSQL.DSN}\",\"{$MYSQL.USER}\",\"{$MYSQL.PASSWORD}\",\"{#USER}\"]"
                                       }
                                   }
                               ]
@@ -173,7 +173,7 @@
                   {
                       "uuid": "fb9674d2c1b24e2f86a50a49b108670e",
                       "name": "H2o - Database size",
-                      "key": "mysql.db.discovery[\"{$MYSQL.DSN}\",\"{$MYSQL.USER}\",\"{$MYSQL.PASSWORD}\"]",
+                      "key": "MYSQL.DB.DISCOVERY[\"{$MYSQL.DSN}\",\"{$MYSQL.USER}\",\"{$MYSQL.PASSWORD}\"]",
                       "delay": "1h",
                       "filter": {
                           "conditions": [
@@ -190,7 +190,7 @@
                           {
                               "uuid": "1f7920cb37264ac48cc3dc0c6a5d5b6a",
                               "name": "H2o - MySQL: Size of database {#DATABASE}",
-                              "key": "mysql.db.size[\"{$MYSQL.DSN}\",\"{$MYSQL.USER}\",\"{$MYSQL.PASSWORD}\",\"{#DATABASE}\"]",
+                              "key": "MYSQL.DB.SIZE[\"{$MYSQL.DSN}\",\"{$MYSQL.USER}\",\"{$MYSQL.PASSWORD}\",\"{#DATABASE}\"]",
                               "delay": "5m",
                               "units": "B",
                               "tags": [
@@ -202,7 +202,7 @@
                               "trigger_prototypes": [
                                   {
                                       "uuid": "2364b9cc28924271bf8f4a74b22c22fe",
-                                      "expression": "last(/Heberg to Oxygen - Mysql/mysql.db.size[\"{$MYSQL.DSN}\",\"{$MYSQL.USER}\",\"{$MYSQL.PASSWORD}\",\"{#DATABASE}\"])>{$MYSQL.HDD.HIGH}*1024*1024*1024",
+                                      "expression": "last(/Heberg to Oxygen - Mysql/MYSQL.DB.SIZE[\"{$MYSQL.DSN}\",\"{$MYSQL.USER}\",\"{$MYSQL.PASSWORD}\",\"{#DATABASE}\"])>{$MYSQL.HDD.HIGH}*1024*1024*1024",
                                       "name": "H2o - DB {#DATABASE} >{$MYSQL.HDD.HIGH}Go",
                                       "priority": "HIGH",
                                       "tags": [
@@ -218,13 +218,13 @@
                                   },
                                   {
                                       "uuid": "c57e48439877460591ba680f23d5e656",
-                                      "expression": "last(/Heberg to Oxygen - Mysql/mysql.db.size[\"{$MYSQL.DSN}\",\"{$MYSQL.USER}\",\"{$MYSQL.PASSWORD}\",\"{#DATABASE}\"])>{$MYSQL.HDD.MEDIUM}*1024*1024*1024",
+                                      "expression": "last(/Heberg to Oxygen - Mysql/MYSQL.DB.SIZE[\"{$MYSQL.DSN}\",\"{$MYSQL.USER}\",\"{$MYSQL.PASSWORD}\",\"{#DATABASE}\"])>{$MYSQL.HDD.MEDIUM}*1024*1024*1024",
                                       "name": "H2o - DB {#DATABASE} >{$MYSQL.HDD.MEDIUM}Go",
                                       "priority": "AVERAGE",
                                       "dependencies": [
                                           {
                                               "name": "H2o - DB {#DATABASE} >{$MYSQL.HDD.HIGH}Go",
-                                              "expression": "last(/Heberg to Oxygen - Mysql/mysql.db.size[\"{$MYSQL.DSN}\",\"{$MYSQL.USER}\",\"{$MYSQL.PASSWORD}\",\"{#DATABASE}\"])>{$MYSQL.HDD.HIGH}*1024*1024*1024"
+                                              "expression": "last(/Heberg to Oxygen - Mysql/MYSQL.DB.SIZE[\"{$MYSQL.DSN}\",\"{$MYSQL.USER}\",\"{$MYSQL.PASSWORD}\",\"{#DATABASE}\"])>{$MYSQL.HDD.HIGH}*1024*1024*1024"
                                           }
                                       ],
                                       "tags": [
@@ -252,7 +252,7 @@
                                       "color": "1A7C11",
                                       "item": {
                                           "host": "Heberg to Oxygen - Mysql",
-                                          "key": "mysql.db.size[\"{$MYSQL.DSN}\",\"{$MYSQL.USER}\",\"{$MYSQL.PASSWORD}\",\"{#DATABASE}\"]"
+                                          "key": "MYSQL.DB.SIZE[\"{$MYSQL.DSN}\",\"{$MYSQL.USER}\",\"{$MYSQL.PASSWORD}\",\"{#DATABASE}\"]"
                                       }
                                   }
                               ]
@@ -341,25 +341,20 @@
                                   {
                                       "type": "GRAPH_PROTOTYPE",
                                       "width": "24",
-                                      "height": "5",
+                                      "height": "32",
                                       "fields": [
-                                          {
-                                              "type": "INTEGER",
-                                              "name": "columns",
-                                              "value": "1"
-                                          },
                                           {
                                               "type": "ITEM_PROTOTYPE",
                                               "name": "itemid",
                                               "value": {
                                                   "host": "Heberg to Oxygen - Mysql",
-                                                  "key": "mysql.db.size[\"{$MYSQL.DSN}\",\"{$MYSQL.USER}\",\"{$MYSQL.PASSWORD}\",\"{#DATABASE}\"]"
+                                                  "key": "MYSQL.DB.SIZE[\"{$MYSQL.DSN}\",\"{$MYSQL.USER}\",\"{$MYSQL.PASSWORD}\",\"{#DATABASE}\"]"
                                               }
                                           },
                                           {
                                               "type": "INTEGER",
                                               "name": "rows",
-                                              "value": "1"
+                                              "value": "8"
                                           },
                                           {
                                               "type": "INTEGER",
@@ -381,25 +376,20 @@
                                   {
                                       "type": "GRAPH_PROTOTYPE",
                                       "width": "24",
-                                      "height": "5",
+                                      "height": "32",
                                       "fields": [
-                                          {
-                                              "type": "INTEGER",
-                                              "name": "columns",
-                                              "value": "1"
-                                          },
                                           {
                                               "type": "ITEM_PROTOTYPE",
                                               "name": "itemid",
                                               "value": {
                                                   "host": "Heberg to Oxygen - Mysql",
-                                                  "key": "mysql.connection.user[\"{$MYSQL.DSN}\",\"{$MYSQL.USER}\",\"{$MYSQL.PASSWORD}\",\"{#USER}\"]"
+                                                  "key": "MYSQL.CONNECTION.USER[\"{$MYSQL.DSN}\",\"{$MYSQL.USER}\",\"{$MYSQL.PASSWORD}\",\"{#USER}\"]"
                                               }
                                           },
                                           {
                                               "type": "INTEGER",
                                               "name": "rows",
-                                              "value": "1"
+                                              "value": "8"
                                           },
                                           {
                                               "type": "INTEGER",
