@@ -40,7 +40,7 @@ Informations sur le volume des DB, le nombre de connexions utilisateurs et le no
 ### Mise en place
 Ajouter le [Template](./zbx_export_templates.json) sur l'intaerface Zabbix dans 'Configuration => Templates => Import' puis le lié sur les Hosts.
 
-Un fichier de configuration pour les Items Key dois être préalablement mit sur le serveur : */etc/zabbix/zabbix_agentd.d/[userparameter_mysql.conf](./userparameter_mysql.conf)*
+Un fichier de configuration pour les Items Key dois être préalablement mit sur le serveur : */etc/zabbix/zabbix_agent2.d/plugins.d/zabbix_mysql/[userparameter_mysql.conf](./userparameter_mysql.conf)*
 
 **Il est grandemment préférable de faire un utilisateur spécial en read-only !** (*défaut:zabbix*)
 
