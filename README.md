@@ -42,8 +42,6 @@ Ajouter le [Template](./zbx_export_templates.json) sur l'interface Zabbix dans '
 
 Un fichier de configuration pour les Items Key dois être préalablement mit sur le serveur : */etc/zabbix/zabbix_agent2.d/plugins.d/zabbix_mysql/[userparameter_mysql.conf](./userparameter_mysql.conf)*
 
-**Il est grandemment préférable de faire un utilisateur spécial en read-only !** (*défaut:zabbix*)
-
 **Attention !!**
 Il faut configurer les macros pour Mysql.
 {$MYSQL.PASSWORD}, {$MYSQL.USER}, {$MYSQL.DSN}, {$MYSQL.PORT}
