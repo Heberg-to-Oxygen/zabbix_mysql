@@ -3,7 +3,7 @@
 - Author : DJERBI Florian
 - Object : Monitoring Mysql on Zabbix 
 - Creation Date : 05/23/2024
-- Modification Date : 05/25/2024
+- Modification Date : 05/26/2024
 
 
 ## Besoins
@@ -47,3 +47,13 @@ Un fichier de configuration pour les Items Key dois être préalablement mit sur
 **Attention !!**
 Il faut configurer les macros pour Mysql.
 {$MYSQL.PASSWORD}, {$MYSQL.USER}, {$MYSQL.DSN}, {$MYSQL.PORT}
+
+### Utilisateur Database
+**Il est grandemment préférable de faire un utilisateur spécial en read-only !** (*défaut:zabbix_mysql*)
+``` bash
+CREATE USER 'zabbix_mysql'@'%' IDENTIFIED BY 'i1wIp%2lKXk3RwPi';
+GRANT SHOW DATABASES ON *.* TO 'zabbix_mysql'@'%';
+GRANT SHOW VIEW ON *.* TO 'zabbix_mysql'@'%';
+GRANT SELECT ON mysql.user TO 'zabbix_mysql'@'%';
+FLUSH PRIVILEGES;
+```
